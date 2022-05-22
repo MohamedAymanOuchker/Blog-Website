@@ -35,6 +35,18 @@ app.get("/contact", (req, res) => {
   res.render("contact", { contactContent: contactContent });
 });
 
+app.get("/posts/:postName", (req, res) => {
+  const requestedTitle = req.params.postName;
+
+  posts.forEach((post) => {
+    const storedTitle = post.title;
+
+    if (storedTitle === requestedTitle) {
+      console.log("Match found!");
+    }
+  });
+});
+
 app.get("/compose", (req, res) => {
   res.render("compose");
 });
@@ -47,10 +59,6 @@ app.post("/compose", (req, res) => {
   };
   posts.push(post);
   res.redirect("/");
-});
-
-app.get("/posts/:postName", (req, res) => {
-  console.log(req.params.postName);
 });
 
 app.listen(3000, () => {
